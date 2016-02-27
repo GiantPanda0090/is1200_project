@@ -133,19 +133,28 @@ TRISF |= 0x2;
 /* This function is called repetitively from the main program */
 void labwork( void ) {
 	int swnr;
+	int jbtn;
 		swnr= getsw();	
 		swnr &= 0x1;
+		
+
 if (swnr==0x1){
 	alarm_on();
 }
 else {
 	alarm_off();
 }
-int jbtn;
+
 jbtn = auth_on();
+
  prime = nextprime( prime );
- display_string( 0, itoaconv( prime ) );
+ itoaconv( prime );
+// display_string( 0, itoaconv( prime ) );
+
+
 display_string( 0, "Welcome home!" );
+
+
 // debug
  time2string( textstring, jbtn );
   display_string( 2, textstring );
