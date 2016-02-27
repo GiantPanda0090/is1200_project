@@ -1,0 +1,44 @@
+# void delay( int ms ) /* Wait a number of milliseconds, specified by the parameter value. */
+# {
+# int i;
+# while( ms > 0 )
+# {
+#  ms = ms ¨C 1;
+#  /* Executing the following for loop should take 1 ms */
+#  for( i = 0; i < 4711; i = i + 1 ) /* The constant 4711 must be easy to change! */
+#  {
+#   /* Do nothing. */
+#   }
+#   }
+#   }
+
+.text
+
+
+
+li $a1,1000 #a1 =ms number behind is input value
+#while loop
+while:
+
+slti $t0,$a1,1 # if ms bigger than 1 $t0 boolean algebra
+addi $s1,$0,0x0
+bne $t0,1,whileloop #if  invert 1 because of slt
+j exit
+
+
+whileloop:
+addi $a1,$a1,-1
+#for loop
+addi $s1,$0,0 #int i =1 initialization    i =t0 for for loop after
+for:
+slti $t1,$s1,4711 #i smaller than 4711 t1 bollean algebra non invert
+bne $t1,0,forloop
+j while
+forloop:
+addi $s1,$s1,1
+nop
+j for
+
+
+exit:
+nop
