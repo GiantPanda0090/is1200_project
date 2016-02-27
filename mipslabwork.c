@@ -25,7 +25,7 @@ int flag =0;
 int counter =0;
 int flagsw;
 char textstring[] = "text, more text, and even more text!";
-
+int index;
 	
 /* Interrupt Service Routine */
 void user_isr( void ) {
@@ -125,7 +125,7 @@ PORTE =0x0000;
 
 	//portd
 	TRISD |= 0x7f4; //7f0|2 motion activated
-
+TRISF |= 0x2;
   return ;
 }
 
@@ -141,12 +141,13 @@ if (swnr==0x1){
 else {
 	alarm_off();
 }
-
+int jbtn;
+jbtn = auth_on();
  prime = nextprime( prime );
  display_string( 0, itoaconv( prime ) );
 display_string( 0, "Welcome home!" );
 // debug
- time2string( textstring, swnr );
+ time2string( textstring, jbtn );
   display_string( 2, textstring );
 display_update();
  return;

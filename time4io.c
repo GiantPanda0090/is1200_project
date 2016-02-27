@@ -37,9 +37,15 @@ int getbtns(void){
 	jbtn =0;
 	int ans;
 	ans = (PORTD>>5) & 0x7;
+	int ans1;
+	ans1 = (PORTF>>1) & 0x1;
     int btn; 
 btn	= ans &0x1 | ans &0x2 | ans &0x4;
-	
+	int btn1;
+	btn1=ans1&0x1;
+	if (btn1 ==1){
+		jbtn =1;
+	}
 	if (btn ==1){
 		jbtn =2;
 	}
