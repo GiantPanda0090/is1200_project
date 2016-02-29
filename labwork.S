@@ -129,7 +129,7 @@ sb $s2,textstring($t5)
 addi $s2,$0,0x0
 addi $t5,$t5,1
 
-beq $s3,0x32,special
+
 
 sb $s3,textstring($t5)
 addi $s3,$0,0x0

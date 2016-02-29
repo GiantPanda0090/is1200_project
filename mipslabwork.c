@@ -137,7 +137,6 @@ void labwork( void ) {
 		swnr= getsw();	
 		swnr &= 0x1;
 		
-
 if (swnr==0x1){
 	alarm_on();
 }
@@ -145,8 +144,12 @@ else {
 	alarm_off();
 }
 
+	
+
 jbtn = auth_on();
 
+
+	
  prime = nextprime( prime );
  itoaconv( prime );
 // display_string( 0, itoaconv( prime ) );
