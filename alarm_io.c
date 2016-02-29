@@ -6,6 +6,7 @@ int ans;
 int index=0x0;
 int pass =0x0000;
 int mask =0xffff;
+int org;
 void alarm_on( void ) {
 
 	ans=(PORTD>>2) & 0x1;
@@ -26,14 +27,15 @@ void alarm_off(void){
 	display_string(3, "System clear");
 	return;
 }
-
-int auth_on(){
-	
+void pass_gen(void){
+	int gen;
+	gen =0x4321;
+	org =gen;
+	return;
+}
+void btn_out(void){
 	int btn;
 	btn =getbtns();
-	int org;
-	int swnr;
-	org =0x4321;
 	
 	if(index >12){
 		index =0;
@@ -44,12 +46,17 @@ int auth_on(){
 	  pass =pass | btn;
 	  index=index+4;
 	}
+	return;
+}
+int auth_on(){
+	int swnr;
 	
+   pass_gen();
+   btn_out();
 	
 	
 	swnr =getsw();
 	swnr &= 0x2;
-	
 if (swnr ==2){
 if (pass==org){
 	display_string( 3, "PASSWORD CORRECT" );
