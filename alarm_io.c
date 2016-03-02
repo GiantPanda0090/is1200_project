@@ -8,15 +8,16 @@ int ans;
 int ix=0x0;
 int pass =0x0000;
 int mask =0xffff;
-int org=0x0000;
+int org=0x01234;
 int out=0x0000;
 int auth=0;
+int swnr;
 
 void pass_in(void){
 	int btn;
 	btn =getbtns();
 	
-	int swnr;
+	
 	swnr =getsw();
 	swnr &= 0x8;
 	
@@ -55,8 +56,10 @@ void alarm_on( void ) {
 	PORTE=0xff;
 display_string( 3, "Motion detected" );
 }
-display_update();
 
+display_update();
+	quicksleep(1500);
+	
 
 
 return;
@@ -73,11 +76,12 @@ int print_pass(){
 
 void pass_gen(void){
 	
-	int swnr;
+	
 	swnr =getsw();
 	swnr &= 0x8;
 	 if(swnr ==8){ 
 		 display_string(3, "PASSWORD RESET MODE ON!");
+		 display_update();
 		 pass_in();
 		 org =out;
 	
@@ -92,7 +96,8 @@ void pass_gen(void){
 		  
 	 }
 	 display_update();
-		  quicksleep(1500);
+	quicksleep(1500);
+	
 		  return;
 	 }
 	
@@ -101,6 +106,7 @@ void pass_gen(void){
 	if (swnr !=8){
 		 out&=0x0000;
 	}
+	
 	return;
 }
 
@@ -108,7 +114,7 @@ void pass_gen(void){
 
 
 void clear(void){
-int swnr;
+
 	//clear 
 swnr =getsw();
 swnr &= 0x4;
@@ -117,40 +123,55 @@ if (swnr ==4){
 	ix =0;
 	out&=0x0000;
 	display_string( 3, "Password Cleared!!" );
+	display_update();
+	quicksleep(1500);
+	
 }
+
 return;
 }
 
 int auth_on(){
-	int swnr;
-	swnr =getsw();
-	swnr &= 0x2;
 	
+	swnr= getsw();	
+    swnr &= 0x1;
 	
-if (swnr ==2){
+	if (swnr==0x1){
+	alarm_on();
+}
+
+if (swnr ==0x0){
 	display_string( 3, "ADMINISTRATOR LOGIN" );
+	display_update();
 	 pass_in();
-	if (swnr ==2){
+	
 		 if (ix >12 ){
 			  ix =0;
 		if (pass==org){
 	display_string( 3, "PASSWORD CORRECT" );
+	display_update();
+	quicksleep(1500);
 	
+	alarm_off();
 	auth =1;
 }
 else{
 	display_string (3,"PASSWORD WRONG!!");
-		auth =0;
+	display_update();
+	quicksleep(1500);
 	
+		auth =0;
+	alarm_on();
 }
 pass &=0x0000;
 	}
-	}	
-	
-display_update();
+		
+
  
-return auth;
+
 }
+
+return auth;
 }
 
 

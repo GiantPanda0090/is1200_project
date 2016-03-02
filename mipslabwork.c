@@ -132,21 +132,15 @@ TRISF |= 0x2;
 
 /* This function is called repetitively from the main program */
 void labwork( void ) {
-	int swnr;
 	int jbtn;
 	int auth;
-    swnr= getsw();	
-    swnr &= 0x1;
-	
 	alarm_off();
 	pass_gen();
 		clear();
+		
+		
     auth=auth_on();
 	
-	
-if (swnr==0x1){
-	alarm_on();
-}
 
 
 
