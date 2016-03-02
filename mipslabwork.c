@@ -134,34 +134,33 @@ TRISF |= 0x2;
 void labwork( void ) {
 	int swnr;
 	int jbtn;
-		swnr= getsw();	
-		swnr &= 0x1;
-		
+	int auth;
+    swnr= getsw();	
+    swnr &= 0x1;
+	
+	alarm_off();
+	pass_gen();
+		clear();
+    auth=auth_on();
+	
+	
 if (swnr==0x1){
 	alarm_on();
 }
-else {
-	alarm_off();
-}
-
-	
-
-jbtn = auth_on();
 
 
-	
+
+jbtn =print_pass();	
  prime = nextprime( prime );
  itoaconv( prime );
 // display_string( 0, itoaconv( prime ) );
-
-
 display_string( 0, "Welcome home!" );
+// debug and showing the pass
 
-
-// debug
- time2string( textstring, jbtn );
+time2string( textstring, jbtn );
   display_string( 2, textstring );
 display_update();
+
  return;
 }
 

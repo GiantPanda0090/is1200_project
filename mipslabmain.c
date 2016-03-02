@@ -51,7 +51,7 @@ int main(void) {
 	display_string( 0, "Welcome home!" );
 	//display_string(1, "in Computer");
 	//display_string(2, "Engineering");
-	display_string(3, "System clear");
+	
 	display_update();
 	
 	//display_image(96, icon);
