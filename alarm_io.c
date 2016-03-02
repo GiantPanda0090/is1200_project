@@ -10,7 +10,7 @@ int pass =0x0000;
 int mask =0xffff;
 int org=0x01234;
 int out=0x0000;
-int auth=0;
+int auth=3;
 int swnr;
 
 void pass_in(void){
@@ -40,7 +40,7 @@ void pass_in(void){
 }
 void alarm_off(void){
 	ans =0;
-	display_string(3, "System clear");
+ display_string( 3, "System Clear" );
 	return;
 }
 
@@ -60,12 +60,12 @@ display_string( 3, "Motion detected" );
 display_update();
 	quicksleep(1500);
 	
-
+	
 
 return;
 
-
 }
+
 
 
 
@@ -75,13 +75,11 @@ int print_pass(){
 }
 
 void pass_gen(void){
-	
-	
 	swnr =getsw();
 	swnr &= 0x8;
 	 if(swnr ==8){ 
-		 display_string(3, "PASSWORD RESET MODE ON!");
-		 display_update();
+		 display_string(0, "PASSWORD RESET MODE ON!");
+		
 		 pass_in();
 		 org =out;
 	
@@ -122,10 +120,8 @@ if (swnr ==4){
 	pass &=0x0000;
 	ix =0;
 	out&=0x0000;
-	display_string( 3, "Password Cleared!!" );
-	display_update();
-	quicksleep(1500);
-	
+	display_string( 0, "Password Cleared!!" );
+
 }
 
 return;
@@ -134,14 +130,12 @@ return;
 int auth_on(){
 	
 	swnr= getsw();	
-    swnr &= 0x1;
+    swnr &= 0x2;
 	
-	if (swnr==0x1){
-	alarm_on();
-}
 
-if (swnr ==0x0){
-	display_string( 3, "ADMINISTRATOR LOGIN" );
+
+if (swnr ==0x2){
+	display_string( 0, "ADMINISTRATOR LOGIN" );
 	display_update();
 	 pass_in();
 	
@@ -151,17 +145,31 @@ if (swnr ==0x0){
 	display_string( 3, "PASSWORD CORRECT" );
 	display_update();
 	quicksleep(1500);
-	
-	alarm_off();
 	auth =1;
+	if (auth ==1){
+	display_string(3,"System unlock!");
+	display_update();
+	quicksleep(1500);
+	alarm_off(); 
+
+}
 }
 else{
 	display_string (3,"PASSWORD WRONG!!");
 	display_update();
 	quicksleep(1500);
-	
 		auth =0;
-	alarm_on();
+	if (auth ==0){
+	while(1){
+	PORTE=0xff;
+display_string( 0, "Non-authorized user!!" );
+display_update();
+	quicksleep(1500);
+	PORTE|=0xff;
+	quicksleep(2500);
+	PORTE&=0x00;
+	}
+}
 }
 pass &=0x0000;
 	}
@@ -174,4 +182,30 @@ pass &=0x0000;
 return auth;
 }
 
+void sec_on(void){
+	auth_on();
+	
+	swnr= getsw();	
+    swnr &= 0x1;
+	
 
+
+if (swnr ==0x1){
+	auth =3;
+	display_string( 0, "ALARM ON!!" );
+display_update();
+quicksleep(1500);
+}
+
+if (auth==3){
+alarm_on();
+}
+/*
+if (swnr ==0x0 &&auth ==0){
+	display_string(3, "PASS WRONG!!");
+	display_update();
+	alarm_on();
+}
+*/
+return;
+}

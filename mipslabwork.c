@@ -134,12 +134,13 @@ TRISF |= 0x2;
 void labwork( void ) {
 	int jbtn;
 	int auth;
-	alarm_off();
+	
 	pass_gen();
 		clear();
-		
-		
-    auth=auth_on();
+			display_update();
+	quicksleep(1500);
+	
+    sec_on();
 	
 
 
