@@ -3,7 +3,8 @@
 *.ko
 *.obj
 *.elf
-
+# C language makefile
+makefile
 # Precompiled Headers
 *.gch
 *.pch

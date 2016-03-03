@@ -46,6 +46,7 @@ void user_isr( void ) {
  time2string( textstring, mytime );
  display_string( 1, textstring );
  display_update();
+ putstrserial(textstring);
  tick( &mytime );
 
   }
@@ -158,7 +159,7 @@ time2string( textstring, jbtn );
 display_update();
 
 
-log();
+
  return;
 }
 

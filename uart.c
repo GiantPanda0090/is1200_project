@@ -25,14 +25,15 @@ void inituart(void) {
 //U1STAbits.URXEN = bit12
 //U1BRG=9960
 // U1MODEbits.ON =bit15
- char str[80];
- 
+// char str[80];
+ /*
 void uart_init(void){
 	U1STA=0x1400;
-	U1BRG =433;
+	U1BRG =519; //9600
 	U1MODE=0x8000;
 	return;
 }
+*/
 //harison harris chapter 8 
 //Example 8.20 Serial Communication with a PC
 //write
@@ -69,12 +70,17 @@ void putstrserial(char *str) {
 */
 
 void putstrserial(char *str) {
-	 int i = 0;
+	 int i;
+	 i= 0;
 	 while (str[i] != 0) { // iterate over string
 
  putcharserial(str[i++]); // send each character
 
  }
+// str[i++]='\n';
+  putcharserial('\n');
+   putcharserial('\r');
+ //str[i++]='\r';
 	return; 
 }
 /*
@@ -124,26 +130,33 @@ void getstrserial(char *str) {
 
  } while (str[i++] != '\r'); // look for carriage return
 
-str[i+1] = 0; // null-terminate the string
+str[i++] =0; // null-terminate the string
+
 return;
 }
 
 
 
 
-void log(void){
+void log(char *str){
 	
- putstrserial("1111111111111");
+ putstrserial(str);
 
- getstrserial(str);
+ //getstrserial(str);
+ /*
  display_string( 0, str );
  display_update();
+ */
 	
  //printf("\n\rYou typed: %s\n\r", str);
  return;
 }
-
-
+/*
+char print(){
+	return *str;
+}
+*/
+/*
 void sw_uart(void){
 	int swnr;
 	swnr= getsw();	
@@ -155,3 +168,4 @@ void sw_uart(void){
 	return;
 }
 
+*/

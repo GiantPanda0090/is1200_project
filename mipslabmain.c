@@ -37,8 +37,12 @@ int main(void) {
 	
 	/*set up uart*/
 	TRISFSET = (1 << 2);
-TRISFCLR = 0x8;
- uart_init();
+    TRISFCLR = 0x8;
+	//uart
+    U1STA=0x1400;
+	U1BRG =42; //115200
+	U1MODE=0x8000;
+	
  
 	/* Set up SPI as master */
 	SPI2CON = 0;
