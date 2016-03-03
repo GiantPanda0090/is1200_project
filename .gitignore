@@ -3,8 +3,10 @@
 *.ko
 *.obj
 *.elf
+
 # C language makefile
 makefile
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -22,7 +24,7 @@ makefile
 *.dylib
 
 # Executables
-*.exe
+
 *.out
 *.app
 *.i*86
