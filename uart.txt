@@ -1,0 +1,24 @@
+
+
+
+/*
+void putcharserial(char c) {
+
+ while (U2STAbits.UTXBF); // wait until transmit buffer empty
+
+ U2TXREG = c; // transmit character over serial port
+
+}
+
+void putstrserial(char *str) {
+
+ int i = 0;
+
+ while (str[i] != 0) { // iterate over string
+
+ putcharserial(str[i++]); // send each character
+
+ }
+
+}
+*/
