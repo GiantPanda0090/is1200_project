@@ -8,7 +8,7 @@ int ans;
 int ix=0x0;
 int pass =0x0000;
 int mask =0xffff;
-int org=0x01234;
+int org=0x1234;
 int out=0x0000;
 int auth=3;
 int swnr;
