@@ -50,6 +50,7 @@ void alarm_on( void ) {
 		
 	if (ans==0){
 	 display_string( 3, "System Armed" );
+	 //log("Welcome home!");
 	} 
 	
 	  if (ans ==1){

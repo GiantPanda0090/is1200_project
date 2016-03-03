@@ -29,7 +29,7 @@ void inituart(void) {
  
 void uart_init(void){
 	U1STA=0x1400;
-	U1BRG =9960;
+	U1BRG =433;
 	U1MODE=0x8000;
 	return;
 }
@@ -48,11 +48,11 @@ void putcharserial(char c) {
 //U2STAbits.UTXBF= U2STA BIT9 0X200
 
 void putcharserial(char c) {
-	while (U2STA&=0X200);
-	U2TXREG = c;
+	
+	while (U1STA&0x200);
+	U1TXREG = c;
 	return;
 }
-
 
 /*
 void putstrserial(char *str) {
@@ -77,15 +77,81 @@ void putstrserial(char *str) {
  }
 	return; 
 }
-void uart_on(void){
-	uart_init();
-	 while(1) {
+/*
+char getcharserial(void) {
 
- putstrserial("Please type something: ");
+ while (!U2STAbits.URXDA); // wait until data available
 
- //getstrserial(str);
+ return U2RXREG; // return character received from
 
- printf("\n\rYou typed: %s\n\r", str);
+ // serial port
 
- }
 }
+*/
+char getcharserial(void) {
+	
+ while (!U1STA&0x1); // wait until data available
+
+ return U1RXREG; // return character received from
+
+ // serial port
+
+}
+
+/*
+void getstrserial(char *str) {
+
+ int i = 0;
+
+ do { // read an entire string until detecting
+
+ str[i] = getcharserial(); // carriage return
+
+ } while (str[i++] != '\r'); // look for carriage return
+
+ str[i−1] = 0; // null-terminate the string
+
+}
+*/
+
+void getstrserial(char *str) {
+
+ int i = 0;
+
+ do { // read an entire string until detecting
+
+ str[i] = getcharserial(); // carriage return
+
+ } while (str[i++] != '\r'); // look for carriage return
+
+str[i+1] = 0; // null-terminate the string
+return;
+}
+
+
+
+
+void log(void){
+	
+ putstrserial("1111111111111");
+
+ getstrserial(str);
+ display_string( 0, str );
+ display_update();
+	
+ //printf("\n\rYou typed: %s\n\r", str);
+ return;
+}
+
+
+void sw_uart(void){
+	int swnr;
+	swnr= getsw();	
+    swnr &= 0x1;
+	if(swnr ==0x1){
+	uart_init();
+	
+	}
+	return;
+}
+

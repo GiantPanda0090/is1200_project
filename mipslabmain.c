@@ -35,6 +35,11 @@ int main(void) {
 	TRISDSET = (1 << 8);
 	TRISFSET = (1 << 1);
 	
+	/*set up uart*/
+	TRISFSET = (1 << 2);
+TRISFCLR = 0x8;
+ uart_init();
+ 
 	/* Set up SPI as master */
 	SPI2CON = 0;
 	SPI2BRG = 4;
@@ -48,7 +53,9 @@ int main(void) {
 	SPI2CONSET = 0x8000;
 	
 	display_init();
-	display_string( 0, "Welcome home!" );
+	
+	//display_string( 0, "Welcome home!" );
+	//log("Welcome home!");
 	//display_string(1, "in Computer");
 	//display_string(2, "Engineering");
 	

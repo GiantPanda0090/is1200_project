@@ -126,6 +126,7 @@ PORTE =0x0000;
 	//portd
 	TRISD |= 0x7f4; //7f0|2 motion activated
 TRISF |= 0x2;
+
   return ;
 }
 
@@ -142,7 +143,7 @@ void labwork( void ) {
 	
     sec_on();
 	
-
+//sw_uart();
 
 
 jbtn =print_pass();	
@@ -156,6 +157,8 @@ time2string( textstring, jbtn );
   display_string( 2, textstring );
 display_update();
 
+
+log();
  return;
 }
 
