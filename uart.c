@@ -47,7 +47,7 @@ void putcharserial(char c) {
 }
 */
 //U2STAbits.UTXBF= U2STA BIT9 0X200
-
+int lognr=0;
 void putcharserial(char c) {
 	
 	while (U1STA&0x200);
@@ -72,14 +72,13 @@ void putstrserial(char *str) {
 void putstrserial(char *str) {
 	 int i;
 	 i= 0;
+	
 	 while (str[i] != 0) { // iterate over string
 
  putcharserial(str[i++]); // send each character
 
  }
 // str[i++]='\n';
-  putcharserial('\n');
-   putcharserial('\r');
  //str[i++]='\r';
 	return; 
 }
@@ -139,9 +138,16 @@ return;
 
 
 void log(char *str){
+     
 	
+	lognr++;
+	 putstrserial("[LOG");
+	  putstrserial(itoaconv(lognr));
+	  putstrserial("]");
+	  putcharserial(' ');
  putstrserial(str);
-
+putcharserial('\n');
+   putcharserial('\r');
  //getstrserial(str);
  /*
  display_string( 0, str );

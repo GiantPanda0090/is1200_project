@@ -128,6 +128,7 @@ void display_init(void) {
 
 void display_string(int line, char *s) {
 	int i;
+
 	if(line < 0 || line >= 4)
 		return;
 	if(!s)
@@ -139,7 +140,9 @@ void display_string(int line, char *s) {
 			s++;
 		} else
 			textbuffer[line][i] = ' ';
+		
 }
+
 
 void display_image(int x, const uint8_t *data) {
 	int i, j;
@@ -180,6 +183,7 @@ void display_update(void) {
 			
 			for(k = 0; k < 8; k++)
 				spi_send_recv(font[c*8 + k]);
+			
 		}
 	}
 }
