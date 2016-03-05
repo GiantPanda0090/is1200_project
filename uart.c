@@ -134,11 +134,14 @@ str[i++] =0; // null-terminate the string
 return;
 }
 
-
-
+char *compare;
+char *stor;
 
 void log(char *str){
-     
+	
+     if(compare ==str||stor ==str){
+		 return;
+	 }
 	
 	lognr++;
 	 putstrserial("[LOG");
@@ -153,7 +156,8 @@ putcharserial('\n');
  display_string( 0, str );
  display_update();
  */
-	
+ stor =compare;
+	compare =str;
  //printf("\n\rYou typed: %s\n\r", str);
  return;
 }

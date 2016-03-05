@@ -68,7 +68,7 @@ int main(void) {
 	//display_image(96, icon);
 	
 	labinit(); /* Do any lab-specific initialization */
-
+log("System online");
 	while( 1 )
 	{
 	  labwork(); /* Do lab-specific things again and again */

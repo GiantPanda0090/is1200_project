@@ -128,7 +128,6 @@ void display_init(void) {
 
 void display_string(int line, char *s) {
 	int i;
-
 	if(line < 0 || line >= 4)
 		return;
 	if(!s)
