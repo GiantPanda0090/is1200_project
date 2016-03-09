@@ -36,9 +36,9 @@ int main(void) {
 	TRISFSET = (1 << 1);
 	
 	/*set up uart*/
-	TRISFSET = (1 << 2);
+	TRISFSET = (1 << 2); 
     TRISFCLR = 0x8;
-	//uart
+	//uart initialization
     U1STA=0x1400;
 	U1BRG =42; //115200
 	U1MODE=0x8000;
@@ -57,7 +57,7 @@ int main(void) {
 	SPI2CONSET = 0x8000;
 	
 	display_init();
-	
+	/* origianl code from lab 3. dont need it anymore*/
 	//display_string( 0, "Welcome home!" );
 	//log("Welcome home!");
 	//display_string(1, "in Computer");
@@ -68,6 +68,7 @@ int main(void) {
 	//display_image(96, icon);
 	
 	labinit(); /* Do any lab-specific initialization */
+	// first log
 log("System online");
 	while( 1 )
 	{

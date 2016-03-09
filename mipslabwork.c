@@ -29,17 +29,14 @@ int index;
 	
 /* Interrupt Service Routine */
 void user_isr( void ) {
-	/*
-	flag =IFS(0) & 0x100;
-	 flag = flag >> 8;
-	 */
- 
+	
+ // initialize timer
  
 	if ( IFS(0) & 0x100){
 		counter=counter+1;
 		  IFS(0)&=0xFF;
 	 }
-	 
+	 // clock
 	  if (counter ==10){
 		 counter =0;
 		PORTE=0x0;
@@ -49,45 +46,6 @@ void user_isr( void ) {
  tick( &mytime );
 
   }
-	 /*
-	 if (IFS(0) & 0x80){
-	 
-
-	IFS(0)&=0x7f;	
- }
- */
-	
- 
- //IFS(0)&=0x7f;
- 
- 
- 
-  
- /*
- else {
-	 IFS(0)&=0x7f;
- */
- /*
- flagsw =IFS(0) & 0x80;
-	 flagsw = flagsw >> 7;
- */
- 
- 
- 
- /*
- if (IFS(0) & 0x80){
-	 IFS(0)&=0x7f;
-	 p =&mytime;
-  pretime =*p;
-  
-  tick( &mytime );
-  
-  if (pretime = *p){
-	  j=1;
-	  PORTE = PORTE + 1;
-  }
- }
- */
   return;
 }
 
@@ -106,26 +64,21 @@ void labinit( void )
 // set prescaler at 1:32, internal clock source
 TMR2 = 0x0; // Clear timer register
 PR2 = 0x7a12; // Load period register
+//interrupt initialization
   IFS(0)&=0xFF;
-   //INTCONbits.MVEC = 1;
    IPC(2)=0000;
    IPC(2)|=  0x7 << 2 | 0x3;
    IEC(0)=0000;
    IEC(0)|=0X100;
      enable_interrupt();
 T2CONSET = 0x8000;
-
 IPC(1)=0x1F000000;
-
 PORTE =0x0000;
-
 //pin 6 in J6-13 50 OC3/RD2
-
-//TRISD|=0x2; //motion sensor set as input
 
 	//portd
 	TRISD |= 0x7f4; //7f0|2 motion activated
-TRISF |= 0x2;
+TRISF |= 0x2; 
 
   return ;
 }
@@ -133,26 +86,27 @@ TRISF |= 0x2;
 
 /* This function is called repetitively from the main program */
 void labwork( void ) {
+	//constant initialization
 	int jbtn;
 	int auth;
+	//uart action
+	pass_gen();// password generation
+		clear();//reset input
+			display_update();// update whatever we need from two action in the top
+	quicksleep(1500); // give user a minute to read
 	
-	pass_gen();
-		clear();
-			display_update();
-	quicksleep(1500);
-	
-    sec_on();
+    sec_on();//security on
 	
 //sw_uart();
 
-
+// input display 
 jbtn =print_pass();	
  prime = nextprime( prime );
  itoaconv( prime );
-// display_string( 0, itoaconv( prime ) );
+ //welcome message
 display_string( 0, "Welcome home!" );
-// debug and showing the pass
 
+// show input
 time2string( textstring, jbtn );
   display_string( 2, textstring );
 display_update();

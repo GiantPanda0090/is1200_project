@@ -47,10 +47,11 @@ void putcharserial(char c) {
 }
 */
 //U2STAbits.UTXBF= U2STA BIT9 0X200
-int lognr=0;
+int lognr=0; // log number
+// transmmit char
 void putcharserial(char c) {
 	
-	while (U1STA&0x200);
+	while (U1STA&0x200);//transmit buffer status
 	U1TXREG = c;
 	return;
 }
@@ -68,7 +69,7 @@ void putstrserial(char *str) {
 
 }
 */
-
+// loop put char and make transmitte string
 void putstrserial(char *str) {
 	 int i;
 	 i= 0;
@@ -93,6 +94,7 @@ char getcharserial(void) {
 
 }
 */
+// receive void (with bug!!!!!!!!)
 char getcharserial(void) {
 	
  while (!U1STA&0x1); // wait until data available
@@ -118,7 +120,7 @@ void getstrserial(char *str) {
 
 }
 */
-
+//receive (with bug!!!!!!!!!!1)
 void getstrserial(char *str) {
 
  int i = 0;
@@ -136,18 +138,20 @@ return;
 
 char *compare;
 char *stor;
-
+//log start
 void log(char *str){
-	
+	// make sure no double log and filt unnessasary log
      if(compare ==str||stor ==str){
 		 return;
 	 }
-	
+	//[LOG lognr]
 	lognr++;
 	 putstrserial("[LOG");
 	  putstrserial(itoaconv(lognr));
 	  putstrserial("]");
+	  //space
 	  putcharserial(' ');
+	  //log message
  putstrserial(str);
 putcharserial('\n');
    putcharserial('\r');
@@ -156,11 +160,28 @@ putcharserial('\n');
  display_string( 0, str );
  display_update();
  */
+ //save previous info and compare later
  stor =compare;
 	compare =str;
  //printf("\n\rYou typed: %s\n\r", str);
  return;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 char print(){
 	return *str;

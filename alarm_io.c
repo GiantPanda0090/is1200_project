@@ -3,7 +3,11 @@
 #include <pic32mx.h>
 
 #include "mipslab.h" 
+/*
+alarm function file
+*/
 
+/*constant*/
 int ans;
 int ix=0x0;
 int pass =0x0000;
@@ -13,31 +17,40 @@ int out=0x0000;
 int auth=3;
 int swnr;
 char *str;
+
+//password input
 void pass_in(void){
+	//button initialize
 	int btn;
 	btn =getbtns();
 	
-	
+	//switch initlize
 	swnr =getsw();
 	swnr &= 0x8;
 	
-	
+	//clean the input as soon as it reach 4 digit input
 	if(ix >12){
 		ix =0;
 		
 	}
+	// if button is not 0 do sth
 	if (btn !=0){
+		//move the value depends on the time of input
 		btn =btn <<ix;
+		//current input
 	  pass =pass | btn;
 	  print_pass();
+	  //save input storage for future usage
 	  if(swnr ==8){
 	  out= out| btn;
 	  }
+	  //next digit
 	  ix=ix+4;
 	}
 	
 	return ;
 }
+//shut down alarm
 void alarm_off(void){
 	ans =0; 
 	str= "System Clear";
@@ -45,20 +58,23 @@ void alarm_off(void){
  log (str);
 	return;
 }
-
+//start up alarm
 void alarm_on( void ) {
-
+//input sensor connect to  pin 6
 	ans=(PORTD>>2) & 0x1;
-		
+		// if receive 0
 	if (ans==0){
 	 display_string( 3, "System Armed" );
 	 //log("Welcome home!");
 	} 
-	
+	//if receive 1
 	  if (ans ==1){
+		  //all led on
 	PORTE=0xff;
 	//str="Motion detected";
+	//display message
 display_string( 3, "Motion detected" );
+//log certain message
 log ("WE ARE IN TROUBLE!");
 }
 
